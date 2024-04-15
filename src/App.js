@@ -18,19 +18,23 @@ export default class App extends Component {
     }
   }
 
-  todoData = [
-    {
-      id: "1",
-      title: "공부하기",
-      complete: true
-    },
-    {
-      id: "2",
-      title: "방청소하기",
-      complete: false
-    }
-  ]
+todoData = [
+  {
+    id: "1",
+    title: "공부하기",
+    complete: true
+  },
+  {
+    id: "2",
+    title: "방청소하기",
+    complete: false
+  }
+]
 
+handleClick = (id)=>{ 
+  let newTodoData = this.todoData.filter((data)=>data.id!==id);
+  console.log('newTodoData', newTodoData);
+}
   render() {
     return (
       <div className="container">
@@ -39,14 +43,15 @@ export default class App extends Component {
             <h1>할 일 목록</h1>
           </div>
 
-          {this.todoData.map((data) => (
+          {this.todoData.map((data)=>(
             <div style={this.getStyle()} key={data.id}>
-              <input type="checkbox" defaultChecked={data.complete} /> {data.title}
-              <button style={this.btnStyle}>x</button>
+              <input type="checkbox" defaultChecked={data.complete}/>{data.title}
+              <button style={this.btnStyle} onClick={()=>this.handleClick(data.id)}>x</button>
             </div>
           ))}
         </div>
       </div>
     )
   }
-}
+
+} // end of class 
