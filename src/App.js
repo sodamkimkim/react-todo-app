@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import "./App.css"; 
+import "./App.css";
 import List from "./components/List";
+import Form from "./components/Form";
 export default function App() {
 
     const [todoData, setTodoData] = useState([
@@ -15,14 +16,6 @@ export default function App() {
         }
     ]);
     const [value, setValue] = useState("");
-
-
-
-
-
-    function handleChange(e) {
-        setValue(e.target.value);
-    }
     function handleSubmit(e) {
         // form의 input data를 전송할 때 페이지 리로드되는 것을 막아줌
         e.preventDefault();
@@ -40,38 +33,14 @@ export default function App() {
         ]);
         setValue("");
     };
-
     return (
         <div className="container">
             <div className="todoBlock">
                 <div className="title">
                     <h1>List</h1>
-                </div> 
-                <List todoData={todoData} setTodoData={setTodoData}/>
-
-                <form
-                    style={{
-                        display: "flex"
-                    }}
-                    onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="value"
-                        style={{
-                            flex: "10",
-                            padding: "5px"
-                        }}
-                        placeholder="해야 할 일을 입력하세요."
-                        value={value}
-                        onChange={handleChange}/>
-                    <input
-                        type="submit"
-                        value="입력"
-                        className="btn"
-                        style={{
-                            flex: '1'
-                        }}/>
-                </form>
+                </div>
+                <List todoData={todoData} setTodoData={setTodoData}/> 
+                <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
             </div>
         </div>
     )
