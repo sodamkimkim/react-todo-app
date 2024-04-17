@@ -6,11 +6,11 @@ export default function App() {
 
     const [todoData, setTodoData] = useState([
         {
-            id: "1",
+            id: "0",
             title: "공부하기",
             completed: false
         }, {
-            id: "2",
+            id: "1",
             title: "청소하기",
             completed: true
         }
@@ -34,12 +34,12 @@ export default function App() {
         setValue("");
     };
     return (
-        <div className="container">
-            <div className="todoBlock">
-                <div className="title">
-                    <h1>List</h1>
+        <div className="flex items-center justify-center w-screen h-screen bg-blue-50">
+            <div className="w-full p-6 m-4 bg-white rounded shadow-md lg:w-3/4 lg:max-w-lg">
+                <div className="flex justify-between mb-3">
+                    <h1 className="text-3xl font-bold">List</h1>
                 </div>
-                <List todoData={todoData} setTodoData={setTodoData}/> 
+                <List todoData={todoData} setTodoData={setTodoData}/>
                 <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
             </div>
         </div>
