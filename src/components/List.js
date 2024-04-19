@@ -1,5 +1,5 @@
 import React from 'react';
-export default function List({
+const List = React.memo(({
     id,
     title,
     completed,
@@ -7,7 +7,8 @@ export default function List({
     setTodoData,
     provided,
     snapshot}
-) {
+) => {
+    console.log("List is Rendering")
     function handleCompleteChange(id) {
         let newTodoData = todoData.map(data => {
             if (data.id === id) {
@@ -52,3 +53,5 @@ export default function List({
         </div>
     )
 }
+)
+export default List;
