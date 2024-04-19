@@ -6,7 +6,9 @@ const List = React.memo(({
     todoData,
     setTodoData,
     provided,
-    snapshot}
+    snapshot,
+    handleClick
+}
 ) => {
     console.log("List is Rendering")
     function handleCompleteChange(id) {
@@ -19,11 +21,7 @@ const List = React.memo(({
         setTodoData(newTodoData);
         console.log(todoData);
     };
-    function handleClick(id) {
-        let newTodoData = todoData.filter((data) => data.id !== id);
-        setTodoData(newTodoData);
-        console.log('newTodoData', newTodoData);
-    };
+
 
     return (
         <div

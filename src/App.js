@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import "./App.css";
 import Lists from "./components/Lists";
 import Form from "./components/Form";
 export default function App() {
     console.log("App is Rendering");
+    
     const [todoData, setTodoData] = useState([
         {
             id: "0",
@@ -15,8 +16,14 @@ export default function App() {
             completed: true
         }
     ]);
+    
     const [value, setValue] = useState("");
-    function handleSubmit(e) {
+    const handleClick = useCallback((id)=> {
+        let newTodoData = todoData.filter((data) => data.id !== id);
+        setTodoData(newTodoData);
+        console.log('newTodoData', newTodoData);
+    }, [todoData]);
+        function handleSubmit(e) {
         // form의 input data를 전송할 때 페이지 리로드되는 것을 막아줌
         e.preventDefault();
 
@@ -39,7 +46,7 @@ export default function App() {
                 <div className="flex justify-between mb-3">
                     <h1 className="text-3xl font-bold">List</h1>
                 </div>
-                <Lists todoData={todoData} setTodoData={setTodoData}/>
+                <Lists todoData={todoData} setTodoData={setTodoData} handleClick = {handleClick}/>
                 <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
             </div>
         </div>
