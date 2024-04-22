@@ -4,20 +4,26 @@ import Lists from "./components/Lists";
 import Form from "./components/Form";
 
 export default function App() {
-    console.log("App is Rendering");
-    // const initialTodoData = localStorage     .getItem("todoData")     .length ===
-    // !0         ? JSON.parse(localStorage.getItem("todoData"))         : [
-    // {                 id: "0",                 title: "청소하기",
-    // completed: false             }         ];
+    console.log("App is Rendering"); 
+    // const [todoData, setTodoData] = useState(
+    //     JSON.parse(localStorage.getItem("todoData")).length ==0
+    //         ? [
+    //             {
+    //                 id: "0",
+    //                 title: "청소하기",
+    //                 completed: false
+    //             }
+    //         ]: JSON.parse(localStorage.getItem("todoData"))
+    // );
     const [todoData, setTodoData] = useState(
-        JSON.parse(localStorage.getItem("todoData")).length ==0
-            ? [
+        JSON.parse(localStorage.getItem("todoData")).length !==0
+            ? JSON.parse(localStorage.getItem("todoData")):[
                 {
                     id: "0",
                     title: "청소하기",
                     completed: false
                 }
-            ]: JSON.parse(localStorage.getItem("todoData"))
+            ]
     );
     const [value, setValue] = useState("");
     useEffect(() => {
