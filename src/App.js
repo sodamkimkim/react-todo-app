@@ -40,11 +40,15 @@ export default function App() {
         ]);
         setValue("");
     };
+    const handleRemoveClick = ()=>{
+        setTodoData([]);
+    }
     return (
         <div className="flex items-center justify-center w-screen h-screen bg-blue-50">
             <div className="w-full p-6 m-4 bg-white rounded shadow-md lg:w-3/4 lg:max-w-lg">
                 <div className="flex justify-between mb-3">
                     <h1 className="text-3xl font-bold">List</h1>
+                    <button onClick={handleRemoveClick}>Delete All</button>
                 </div>
                 <Lists todoData={todoData} setTodoData={setTodoData} handleClick = {handleClick}/>
                 <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
