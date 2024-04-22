@@ -1,29 +1,35 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import "./App.css";
 import Lists from "./components/Lists";
 import Form from "./components/Form";
+
 export default function App() {
     console.log("App is Rendering");
-    
-    const [todoData, setTodoData] = useState([
-        {
-            id: "0",
-            title: "공부하기",
-            completed: false
-        }, {
-            id: "1",
-            title: "청소하기",
-            completed: true
-        }
-    ]);
-    
+    // const initialTodoData = localStorage     .getItem("todoData")     .length ===
+    // !0         ? JSON.parse(localStorage.getItem("todoData"))         : [
+    // {                 id: "0",                 title: "청소하기",
+    // completed: false             }         ];
+    const [todoData, setTodoData] = useState(
+        JSON.parse(localStorage.getItem("todoData")).length ==0
+            ? [
+                {
+                    id: "0",
+                    title: "청소하기",
+                    completed: false
+                }
+            ]: JSON.parse(localStorage.getItem("todoData"))
+    );
     const [value, setValue] = useState("");
-    const handleClick = useCallback((id)=> {
+    useEffect(() => {
+        localStorage.setItem("todoData", JSON.stringify(todoData));
+    }, [todoData]);
+
+    const handleXClick = useCallback((id) => {
         let newTodoData = todoData.filter((data) => data.id !== id);
         setTodoData(newTodoData);
-        console.log('newTodoData', newTodoData);
+        // localStorage.setItem('todoData', JSON.stringify(newTodoData));
     }, [todoData]);
-        function handleSubmit(e) {
+    function handleSubmit(e) {
         // form의 input data를 전송할 때 페이지 리로드되는 것을 막아줌
         e.preventDefault();
 
@@ -38,10 +44,13 @@ export default function App() {
             ...prev,
             newTodo
         ]);
+        // localStorage.setItem('todoData', JSON.stringify([     ...todoData, newTodo
+        // ]));
         setValue("");
     };
-    const handleRemoveClick = ()=>{
+    const handleRemoveClick = () => {
         setTodoData([]);
+        //      localStorage.setItem('todoData', JSON.stringify([]));
     }
     return (
         <div className="flex items-center justify-center w-screen h-screen bg-blue-50">
@@ -50,7 +59,10 @@ export default function App() {
                     <h1 className="text-3xl font-bold">List</h1>
                     <button onClick={handleRemoveClick}>Delete All</button>
                 </div>
-                <Lists todoData={todoData} setTodoData={setTodoData} handleClick = {handleClick}/>
+                <Lists
+                    todoData={todoData}
+                    setTodoData={setTodoData}
+                    handleClick={handleXClick}/>
                 <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
             </div>
         </div>
